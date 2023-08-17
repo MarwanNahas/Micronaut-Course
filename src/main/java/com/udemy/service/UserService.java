@@ -34,4 +34,18 @@ public class UserService {
     // return null;
     return users.stream().filter(user -> user.getId()==id).findFirst().orElse(null);
     }
+
+    public User updateUser(int id , User user){
+        User prevUser = getUserById(id);
+        prevUser.setName(user.getName());
+        prevUser.setEmail(user.getEmail());
+        prevUser.setMobileNumber(user.getMobileNumber());
+        prevUser.setId(user.getId());
+        return prevUser;   
+    }
+
+    public String deleteUser (int id ){
+      users.remove(getUserById(id));
+      return "Removed";
+    }
 }

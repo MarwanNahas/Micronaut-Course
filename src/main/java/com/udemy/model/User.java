@@ -1,7 +1,8 @@
 package com.udemy.model;
 
-
-
+import io.micronaut.core.annotation.Introspected;
+import io.micronaut.serde.annotation.Serdeable;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,13 +34,20 @@ import lombok.Setter;
 // .job("Unchained Reaction")
 // .build();
 @Builder
-
-
+// both Serdeable and Introspected are used so that object can be transfered to
+// JSON format
+// Introspected is used for validation also , so that you can put Bean
+// Validation Annotations like @NotBlank and @Min(5) and @Max(10)
+@Introspected
+@Serdeable
 public class User {
 
     private int id;
+   @NotBlank
     private String name;
+    @NotBlank
     private String mobileNumber;
+    @NotBlank
     private String email;
 
 }

@@ -8,9 +8,13 @@ import com.udemy.service.UserService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Put;
+import jakarta.validation.Valid;
+
 
 //this is our endpoint of the HTTP request which is /api/users
 @Controller("/api/users")
@@ -27,7 +31,7 @@ public class UserController {
     //and it will take the paramater of user from the body (It will take request body which will be user class )
     //yeb2a elly ana fahamto laa 2a5osh 3ala /api/users ha5od el parameters men el body w ha7otaha fel user yeb2a ana keda gebt el id wel email wel 7agat beta3et el user w 7atetha f user b3d keda ha return response.created dah el mafrood yeraga3ly 201 lw eldenya tmm w haya5od el arguement beta3et el UserService.createUser w hadeeha el user ely 2a5adna el arguements beta3to men el body fa keda ana 7afazto fel list of users w hate3mely return lel user fel 2a5er fal mafrood el return el kebeera teraga3ly 201
     @Post
-    public HttpResponse<User> createUser(@Body User user){
+    public HttpResponse<User> createUser(@Body @Valid  User user){
 
         return HttpResponse.created(userService.createUser(user));
         
@@ -40,15 +44,19 @@ public class UserController {
     }
 
 
-    //this is mine test it later
-    //to get a user by its ID 
-    // @Get
-    // public HttpResponse<User> getUserById(@Body int id){
-    //     return HttpResponse.ok(userService.getUserById(id));
-    // }
+   
     @Get("/{id}")
     public HttpResponse<User> getUserById(@PathVariable int id){
         return HttpResponse.ok(userService.getUserById(id));
     }
-    
+
+    @Put("/{id}")
+    public HttpResponse<User> updateUser(@PathVariable int id,@Body User user){
+        return HttpResponse.ok(userService.updateUser(id, user));
+    }
+    @Delete("/{id}")
+    public HttpResponse<String> deleteUser (@PathVariable int id){
+        return HttpResponse.ok(userService.deleteUser(id));
+    }
+
 }
