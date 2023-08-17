@@ -47,6 +47,7 @@ public class UserController {
    
     @Get("/{id}")
     public HttpResponse<User> getUserById(@PathVariable int id){
+        //here i always return HttpResponse.ok and that is not correct for Error Handling
         return HttpResponse.ok(userService.getUserById(id));
     }
 
