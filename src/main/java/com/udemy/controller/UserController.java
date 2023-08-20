@@ -3,6 +3,7 @@ package com.udemy.controller;
 import java.util.List;
 
 import com.udemy.model.User;
+import com.udemy.model.UserResponse;
 import com.udemy.service.UserService;
 
 import io.micronaut.http.HttpResponse;
@@ -44,11 +45,21 @@ public class UserController {
     }
 
 
-   
+   //This is Before the preference part 
+    // @Get("/{id}")
+    // public HttpResponse<User> getUserById(@PathVariable int id){
+    //     //here i always return HttpResponse.ok and that is not correct for Error Handling
+    //     return HttpResponse.ok(userService.getUserById(id));
+    // }
+
+
+    //This is After the Preference Part
+    //Before we jst returned User as a Response But now we will need to return The User Response + The Preference Response together So for this we will create a User repsonse this will contain Both responses together and we will put it in the model folder 
+    //We will also go to userService.java and change the getUserByID method
     @Get("/{id}")
-    public HttpResponse<User> getUserById(@PathVariable int id){
+    public HttpResponse<UserResponse> getUserById(@PathVariable int id){
         //here i always return HttpResponse.ok and that is not correct for Error Handling
-        return HttpResponse.ok(userService.getUserById(id));
+        return HttpResponse.ok(userService.getUserDetails(id));
     }
 
     @Put("/{id}")
